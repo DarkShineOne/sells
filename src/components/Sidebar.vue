@@ -15,10 +15,6 @@ export default{
             И тут тоже будут параметры<br>
             Тут везде будут параметры
         </div>
-        
-        
-        
-        sidebar<br>1<br>2<br>3<br>4<br>5
       </div>
 </template>
 
@@ -36,8 +32,9 @@ export default{
     margin-right: 20px;
     width: 278px;
     z-index: 10;
-    background-color: rgb(85, 241, 71);
+    background-color:#fff;
     border-radius:8px;
+    box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.1);
   }
   .sidebar_search{
     margin-top: 0px;
