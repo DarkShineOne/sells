@@ -8,26 +8,6 @@ create table Sale(
 	SaleLink VARCHAR(255)
 );
 
-create table Country(
-	ID Serial primary key,
-	Name VARCHAR(255)
-);
-
-create table Manufacturer(
-	ID Serial primary key,
-	NAME Varchar(255)
-);
-
-create table IType(
-	ID Serial primary key,
-	Name VARCHAR(255)
-);
-
-create table Color(
-	ID Serial primary key,
-	Name VARCHAR(255)
-);
-
 create table ExpiredSale(
 	ID SERIAL primary key,
 	Name VARCHAR(255),
@@ -136,5 +116,7 @@ VALUES (1,1,5,20,1);
 INSERT INTO Characteristic(Name) values ('Тип товара'),('Производитель'),('Страна'),('Цвет');
 -- Добавление характеристик товару Корпус DEEPCOOL CL500 [R-CL500-BKNMA1N-G-1] черный
 INSERT INTO ItemToCharacteristic(ItemId, CharacteristicId, value) values (1,1,'Корпус'),(1,2,'DEEPCOOL'),(1,3,'Китай'),(1,4,'Черный');
--- Полезная фича объединения всех столбцов в одну строку
--- select item.id, string_agg(ItemToCharacteristic.value,', ') from item join ItemToCharacteristic on (ItemToCharacteristic.itemid = item.id) group by item.id;
+
+select * from ItemToCharacteristic;
+
+select item.id, ItemToCharacteristic.value from item join ItemToCharacteristic on (ItemToCharacteristic.itemid = item.id);
