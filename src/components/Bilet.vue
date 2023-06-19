@@ -3,6 +3,8 @@ export default{
     props: {
     name: String,
     voblers: String, // TEMP
+    v_color: String, // TEMP
+    v_text_color: String, //TEMP
     stats: String,
     image: String
     }
@@ -17,7 +19,10 @@ export default{
             <div class="info_name">
             {{ name }}
             </div>
-            <div class="info_vobles">
+            <div v-if="voblers" class="info_vobles" :style="{'background-color':v_color, 'color':v_text_color }">
+                {{ voblers }}
+            </div>
+            <div v-else="voblers" class="info_vobles" :style="{'background-color':'#fff'}">
                 {{ voblers }}
             </div>
             <div>
@@ -29,7 +34,10 @@ export default{
 
 
             </div>
-            <div>BOUGHT INFO</div>
+            
+          <div>
+            BOUGHT INFO
+          </div>
 
         </div>
     </div>
@@ -69,10 +77,26 @@ export default{
   .info_name{
     height:72px
   }
+
+
   .info_vobles{
-    height:22px;
+    height:18px;
     margin-bottom: 12px;
     margin-top: 8px;
+    background-color: #fff0ef;
+    width: fit-content;
+    border-radius: 4px;
+    font-family: 'PT Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 14px;
+    padding: 4px;
+    color: #FF6558;
+
+    display: flex;
+    align-items: center;
+
   }
 
 

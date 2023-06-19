@@ -15,7 +15,7 @@ export default{
 
       <Bilet 
       name = '6.1" Смартфон Apple iPhone 11 128 ГБ черный [6x(2.65 ГГц), 4 Гб, 1 SIM, IPS, 1792x828, камера 12+12 Мп, NFC, 4G, GPS, 3110 мА*ч]'
-      voblers = "VOBLERS"
+      voblers = "Рассрочка 0-0-12 или Выгода 3 600 ₽"
       stats = "STATS"
       image = "img/ipone.png"
       />
@@ -23,14 +23,15 @@ export default{
 
       <Bilet 
       name = 'ДИМА '
-      voblers = "РАССРОЧКА 1 дима по цене 3"
+      voblers = "Выгодные комплекты"
+      v_color="#F2EDFF"
+      v_text_color="#7C4CFF"
       stats = "брак"
       image = "img/ava_pixel.png"
       />
 
       <Bilet 
       name = 'Ну реально ДИМА'
-      voblers = "ЧЁ ПИСАТЬ"
       stats = "брак"
       image = "img/bugur.png"
       />
