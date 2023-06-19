@@ -121,6 +121,16 @@ create table ItemToColor(
 			REFERENCES Color(Id)
 );
 
+create table customer_account(
+	UserID int,
+	Username varchar(255),
+	Firstname varchar(255),
+	Secondname varchar(255),
+	Email varchar(255),
+	Phone varchar(255),
+	Customer_Password varchar(255)
+);
+
 INSERT INTO Category(Name) 
 values 
 ('Бытовая техника'),
