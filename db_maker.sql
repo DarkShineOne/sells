@@ -46,7 +46,6 @@ create table Category(
 create table Item(
 	Id SERIAL primary key,
 	Name VARCHAR(255),
-	Features VARCHAR(255),
 	Price FLOAT,
 	ItemCount INT,
 	logourl VARCHAR(255),
@@ -60,6 +59,23 @@ create table Item(
 create table DiscountType(
 	Id SERIAL Primary key,
 	Name VARCHAR(255)
+);
+
+create table Characteristic(
+	Id Serial primary key,
+	Name VARCHAR(255)
+);
+
+create table ItemToCharacteristic(
+	ItemId int,
+	CharacteristicId int,
+	Value VARCHAR(255),
+	CONSTRAINT fk_Item
+		FOREIGN KEY(ItemId)
+			REFERENCES Item(ID),
+	CONSTRAINT fk_Characteristic
+		FOREIGN KEY(CharacteristicID)
+			REFERENCES Characteristic(Id)
 );
 
 create table ItemInSale(
@@ -78,50 +94,6 @@ create table ItemInSale(
 	CONSTRAINT fk_DiscountType
 		FOREIGN KEY(DiscType)
 			REFERENCES DiscountType(id)
-);
-
-create table ItemToCountry(
-	ItemID int,
-	CountryID int,
-	CONSTRAINT fk_Item
-		FOREIGN KEY(ItemId)
-			REFERENCES Item(Id),
-	CONSTRAINT fk_Country
-		FOREIGN KEY(CountryId)
-			REFERENCES Country(Id)
-);
-
-create table ItemToIType(
-	ItemID int,
-	ITypeID int,
-	CONSTRAINT fk_Item
-		FOREIGN KEY(ItemId)
-			REFERENCES Item(Id),
-	CONSTRAINT fk_IType
-		FOREIGN KEY(ITypeId)
-			REFERENCES IType(Id)
-);
-
-create table ItemToManufacturer(
-	ItemID int,
-	ManufacturerID int,
-	CONSTRAINT fk_Item
-		FOREIGN KEY(ItemId)
-			REFERENCES Item(Id),
-	CONSTRAINT fk_Manufacturer
-		FOREIGN KEY(ManufacturerId)
-			REFERENCES Manufacturer(Id)
-);
-
-create table ItemToColor(
-	ItemID int,
-	ColorID int,
-	CONSTRAINT fk_Item
-		FOREIGN KEY(ItemId)
-			REFERENCES Item(Id),
-	CONSTRAINT fk_Color
-		FOREIGN KEY(ColorId)
-			REFERENCES Color(Id)
 );
 
 create table customer_account(
@@ -160,12 +132,7 @@ INSERT INTO SALE(Name, Description, starttime, endtime, logourl)
 VALUES ('Распродажа','Дискриптион', '2023-06-14 12:00:00','2023-06-15 12:00:00', 'url');
 INSERT INTO ItemInSale(ItemId, SaleId, Priority, Discount, DiscType) 
 VALUES (1,1,5,20,1);
-
--- Добавление стран в таблицу Country
-INSERT INTO COUNTRY(Name) values ('Россия'),('Китай'),('Вьетнам');
--- Добавление цветов
-INSERT INTO Color(Name) values ('Черный'),('Белый');
--- Добавление типов
-INSERT INTO IType(Name) values ('Корпус'),('Телефон'),('Ноутбук');
--- Добавление производителей
-INSERT INTO Manufacturer(Name) values ('Xiaomi'),('ASUS'),('Ardor'),('DeepCool');
+-- Добавление характеристик
+INSERT INTO Characteristic(Name) values ('Тип товара'),('Производитель'),('Страна'),('Цвет');
+-- Добавление характеристик товару Корпус DEEPCOOL CL500 [R-CL500-BKNMA1N-G-1] черный
+INSERT INTO ItemToCharacteristic(ItemId, CharacteristicId, value) values (1,1,'Корпус'),(1,2,'DEEPCOOL'),(1,3,'Китай'),(1,4,'Черный');
