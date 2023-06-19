@@ -122,8 +122,8 @@ values
 ('Дом, декор и посуда'),
 ('Автотовары'),
 ('Аксессуары и услуги');
-INSERT INTO ITEM(Name, Features, Price, ItemCount, logourl, CategoryId) 
-VALUES ('Корпус DEEPCOOL CL500 [R-CL500-BKNMA1N-G-1] черный','Mid-Tower, Micro-ATX, Mini-ITX, Standard-ATX, USB 3.2 Gen1 Type-A, USB 3.2 Gen2 Type-C', 10000, 5, 'https://logourl.com', 1);
+INSERT INTO ITEM(Name, Price, ItemCount, logourl, CategoryId) 
+VALUES ('Корпус DEEPCOOL CL500 [R-CL500-BKNMA1N-G-1] черный', 10000, 5, 'https://logourl.com', 1);
 INSERT INTO DiscountType(Name) 
 VALUES ('Процент'), ('Сумма');
 INSERT INTO SALE(Name, Description, starttime, endtime, logourl) 
