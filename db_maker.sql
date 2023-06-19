@@ -4,7 +4,8 @@ create table Sale(
 	Description VARCHAR(255),
 	StartTime TIMESTAMP,
 	EndTime TIMESTAMP,
-	logourl VARCHAR(255)
+	logourl VARCHAR(255),
+	SaleLink VARCHAR(255)
 );
 
 create table Country(
@@ -33,7 +34,8 @@ create table ExpiredSale(
 	Description VARCHAR(255),
 	StartTime TIMESTAMP,
 	EndTime TIMESTAMP,
-	logourl VARCHAR(255)
+	logourl VARCHAR(255),
+	SaleLink varchar(255)
 );
 
 create table Category(
@@ -48,6 +50,7 @@ create table Item(
 	Price FLOAT,
 	ItemCount INT,
 	logourl VARCHAR(255),
+	ItemLink VARCHAR(255),
 	CategoryId int NOT NULL,
 	CONSTRAINT fk_Category
 		FOREIGN KEY(CategoryId)
