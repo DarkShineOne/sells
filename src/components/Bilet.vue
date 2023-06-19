@@ -35,8 +35,16 @@ export default{
 
             </div>
             
-          <div>
-            BOUGHT INFO
+          <div class="bought_info">
+            <div class="price">
+              <span class="old_price">50000</span><br>
+
+              69999
+            </div>
+            <div class="credit_price">от 6666₽/ мес.</div>
+            
+            <button class="like_button buttons">&hearts;</button>
+            <button class ="buy_button buttons">КУПИЦ</button>
           </div>
 
         </div>
@@ -99,5 +107,48 @@ export default{
 
   }
 
+  .bought_info{
+    text-align: right;
+  }
 
+  .buttons {
+	background: rgb(255, 255, 255);
+	border-radius: 8px;
+	transition: all 0.5s ease;
+  border: 1px solid #D9D9D9;
+}
+  .buy_button {
+	width: 89px;
+  height: 44px;
+  margin-left: 4px;
+  
+}
+
+.buy_button:hover{
+	background-color: #FF6558;
+}
+
+.like_button {
+  width: 44px;
+  height: 44px;
+}
+
+.like_button:hover{
+	background-color: #7c58ff;
+}
+
+.price{
+  color:#FC8507;
+  font-size: 18px;
+}
+
+.old_price{
+  text-decoration: line-through;
+  color:gray;
+  font-size: 12px;
+}
+
+.any_price{
+  
+}
 </style>
