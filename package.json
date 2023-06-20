@@ -10,11 +10,14 @@
   "author": "DarkShine",
   "license": "MIT",
   "dependencies": {
+    "body-parser": "^1.20.2",
     "cors": "^2.8.5",
     "express": "^4.18.2",
-    "mysql2": "^3.4.0"
+    "mysql2": "^3.4.0",
+    "pg": "^8.11.0"
   },
   "devDependencies": {
-    "nodemon": "^2.0.22"
+    "nodemon": "^2.0.22",
+    "vue": "^3.3.4"
   }
 }

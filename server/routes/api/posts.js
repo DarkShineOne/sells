@@ -1,37 +1,40 @@
 const express = require('express');
 const mysql = require('mysql2')
+const Pool = require('pg').Pool
 
 const router = express.Router()
 // get posts
 
 
 const connection = mysql.createConnection({
-    host: "192.168.0.106",
-    user: "dspc",
+    host: "localhost",
+    user: "root",
     database: "mydb",
     password: "19p6vv",
     port: 3306
 });
-connection.connect(function(err){console.log(err?.message)});
+
+const pool = new Pool({
+    host: 'localhost',
+    user: 'darkshine',
+    database: 'testdb',
+    password: '19p6vv',
+    port: 5432
+})
 
 
-const user_choice_category  = ["\'Смартфоны\'", "\'Видеокарты\'"]
-const user_choice_manufacturer = ["\'\'"];
-const query_category = "("+ user_choice_category.join(", ") + ")"
-const query_manufacturer = "(" + user_choice_manufacturer.join(", ") + ")"
-
-function getQueryAsync(msc){
+function getQueryAsync(){
     return new Promise((resolve, reject) =>{
-        msc.query(`select idgoods, name, manufacturer from goods where tags = "Смартфоны";`,
-        async function(err, res, fields){
-            if (err) reject (err);
-            resolve(JSON.parse(JSON.stringify(res)))
-        });
+        pool.query(`select * from Item`, 
+        async function(err,res){
+            if (err) reject(err);
+            resolve(JSON.parse(JSON.stringify(res.rows)))                
+        })
     });
 }
 
 router.get('/', async (req, res) =>{
-    const posts = await getQueryAsync(connection, user_choice_category)
+    const posts = await getQueryAsync()
     console.log(posts)
     res.send(posts)
 })
