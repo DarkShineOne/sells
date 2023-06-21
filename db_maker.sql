@@ -102,6 +102,28 @@ values
 ('Дом, декор и посуда'),
 ('Автотовары'),
 ('Аксессуары и услуги');
+-- Высчет цены товара со скидкой
+CREATE OR REPLACE FUNCTION ItemPriceWithDiscount_func()
+  RETURNS trigger
+  AS
+$$
+declare
+BEGIN
+IF (new.DiscType = 1)
+	THEN
+		BEGIN
+			New.Price = (select item.price from item where item.id = new.itemid)/100*(100-new.Discount);
+		END;
+	ELSE
+		BEGIN
+			New.Price = (select item.price from item where item.id = new.itemid)-new.Discount;
+		END;
+	END IF;
+return NEW;
+END;
+$$
+LANGUAGE 'plpgsql';
+
 INSERT INTO ITEM(Name, Price, ItemCount, logourl, CategoryId) 
 VALUES ('Корпус DEEPCOOL CL500 [R-CL500-BKNMA1N-G-1] черный', 10000, 5, 'https://logourl.com', 1);
 INSERT INTO DiscountType(Name) 
