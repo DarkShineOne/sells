@@ -69,17 +69,18 @@ CREATE OR REPLACE FUNCTION SortCharacteristic(Nam VARCHAR) RETURNS TABLE(
 
 CREATE FUNCTION AllItems() RETURNS table(
 id int,
-"Название" varchar(255) ,
-"Цена" float,
-"Количество товара" int,
+Name varchar(255) ,
+Price float,
+ItemCount int,
 logourl varchar(255),
 itemlink varchar(255),
-"Категория товара" int,
-"Приоритет" int,
-"Цена со скидкой" float,
-"Характеристики" text) 
+CategoryId int,
+Priority int,
+DiscPrice float,
+Characteristic text) 
 AS $$
-select item.*, iteminsale.priority as "Приоритет", iteminsale.price as "Цена со скидкой", string_agg(ItemToCharacteristic.value,', ') as "Все характеристики"
+select item.*, iteminsale.priority, iteminsale.price, string_agg(ItemToCharacteristic.value,', ')
 from item join ItemToCharacteristic on (ItemToCharacteristic.itemid = item.id) 
-join iteminsale on (iteminsale.itemid = item.id) group by item.id, iteminsale.price, iteminsale.priority order by iteminsale.priority desc;
+join iteminsale on (iteminsale.itemid = item.id) group by item.id, iteminsale.priority, iteminsale.price order by iteminsale.priority desc, string_agg(ItemToCharacteristic.value,', ');;
 $$ LANGUAGE sql;
+
