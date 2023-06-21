@@ -146,3 +146,5 @@ INSERT INTO ItemToCharacteristic(ItemId, CharacteristicId, value) values (1,1,'�
 select * from ItemToCharacteristic;
 
 select item.id, ItemToCharacteristic.value from item join ItemToCharacteristic on (ItemToCharacteristic.itemid = item.id);
+-- Полезная фича объединения всех столбцов в одну строку
+-- select item.id, string_agg(ItemToCharacteristic.value,', ') from item join ItemToCharacteristic on (ItemToCharacteristic.itemid = item.id) group by item.id;
