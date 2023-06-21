@@ -25,6 +25,17 @@ export default{
 </template>
 
 <style>
+
+@font-face {
+  font-family:"PT Sans";
+  src: local("PT Sans"),
+  url(PTSans.ttf)
+}
+
+html * {
+  font-family:"PT Sans";
+}
+
   .header{
     height: 145px;
     background-color: beige;

@@ -43,10 +43,11 @@ export default{
             </div>
             <div class="credit_price">от 6666₽/ мес.</div>
             
-            <button class="like_button buttons">&hearts;</button>
-            <button class ="buy_button buttons">КУПИЦ</button>
+            <button class="like_button buttons">
+              ᅠ
+            </button> 
+            <button class ="buy_button buttons">КУПИТЬ</button>              
           </div>
-
         </div>
     </div>
 </template>
@@ -94,7 +95,6 @@ export default{
     background-color: #fff0ef;
     width: fit-content;
     border-radius: 4px;
-    font-family: 'PT Sans';
     font-style: normal;
     font-weight: 400;
     font-size: 12px;
@@ -114,7 +114,7 @@ export default{
   .buttons {
 	background: rgb(255, 255, 255);
 	border-radius: 8px;
-	transition: all 0.5s ease;
+	transition: all 0.3s ease;
   border: 1px solid #D9D9D9;
 }
   .buy_button {
@@ -125,16 +125,25 @@ export default{
 }
 
 .buy_button:hover{
-	background-color: #FF6558;
+	/* background-color: #FC8507; */
+  background-image: linear-gradient(#f7a15b, #FC8507);
+  color:#fff;
 }
 
 .like_button {
   width: 44px;
   height: 44px;
+  color:#D9D9D9;
+  font-size: small;
+  margin:none;
+  background-image: url(./img/heartlike2.svg);
+  padding: 2px;
+  background-size: cover;
 }
 
+
 .like_button:hover{
-	background-color: #7c58ff;
+	background-color: #f3f1f1;
 }
 
 .price{
@@ -148,7 +157,4 @@ export default{
   font-size: 12px;
 }
 
-.any_price{
-  
-}
 </style>
