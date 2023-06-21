@@ -128,8 +128,30 @@ create trigger ItemPriceWithDiscount
 	BEFORE INSERT ON ItemInSale
 	FOR EACH ROW EXECUTE FUNCTION ItemPriceWithDiscount_func();
 
-INSERT INTO ITEM(Name, Price, ItemCount, logourl, CategoryId) 
-VALUES ('Корпус DEEPCOOL CL500 [R-CL500-BKNMA1N-G-1] черный', 10000, 5, 'https://logourl.com', 1);
+
+insert into category(Name) values (UNNEST(ARRAY[
+'Электрочайники',
+'Блендеры погружные',
+'Вытяжки',
+'Холодильники',
+'Стиральные машины',
+'Плиты электрические',
+'Блендеры стационарные',
+'Плиты комбинированные',
+'Кофеварки капельные',
+'Миксеры',
+'Напольные пылесосы',
+'Весы кухонные',
+'Фильтры для вытяжек',
+'Конвекторы',
+'Датчики для умного дома',
+'Электрические инфракрасные обогреватели',
+'Умные выключатели и кнопки',
+'Климатические комплексы',
+'Умные розетки',
+'Варочные панели электрические'
+]));
+
 INSERT INTO DiscountType(Name) 
 VALUES ('Процент'), ('Сумма');
 INSERT INTO SALE(Name, Description, starttime, endtime, logourl) 
