@@ -124,6 +124,10 @@ END;
 $$
 LANGUAGE 'plpgsql';
 
+create trigger ItemPriceWithDiscount
+	BEFORE INSERT ON ItemInSale
+	FOR EACH ROW EXECUTE FUNCTION ItemPriceWithDiscount_func();
+
 INSERT INTO ITEM(Name, Price, ItemCount, logourl, CategoryId) 
 VALUES ('Корпус DEEPCOOL CL500 [R-CL500-BKNMA1N-G-1] черный', 10000, 5, 'https://logourl.com', 1);
 INSERT INTO DiscountType(Name) 
