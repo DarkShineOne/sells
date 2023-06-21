@@ -66,3 +66,20 @@ CREATE OR REPLACE FUNCTION SortCharacteristic(Nam VARCHAR) RETURNS TABLE(
 	join Characteristic on (ItemToCharacteristic.CharacteristicId = Characteristic.id)
 	where ItemToCharacteristic.Value = Nam;
 	$$ LANGUAGE SQL;
+
+CREATE FUNCTION AllItems() RETURNS table(
+id int,
+"Название" varchar(255) ,
+"Цена" float,
+"Количество товара" int,
+logourl varchar(255),
+itemlink varchar(255),
+"Категория товара" int,
+"Приоритет" int,
+"Цена со скидкой" float,
+"Характеристики" text) 
+AS $$
+select item.*, iteminsale.priority as "Приоритет", iteminsale.price as "Цена со скидкой", string_agg(ItemToCharacteristic.value,', ') as "Все характеристики"
+from item join ItemToCharacteristic on (ItemToCharacteristic.itemid = item.id) 
+join iteminsale on (iteminsale.itemid = item.id) group by item.id, iteminsale.price, iteminsale.priority order by iteminsale.priority desc;
+$$ LANGUAGE sql;
