@@ -43,11 +43,21 @@ export default{
       image = "img/ava_pixel.png"
       />
 
+      <Bilet 
+      name = 'ДИМА ЧМО '
+      voblers = "Выгодные комплекты"
+      v_color="#F2EDFF"
+      v_text_color="#7C4CFF"
+      stats = "брак"
+      image = "img/ava_pixel.png"
+      />
+
+
     </div>
 </template>
 
 <style>
-  .body-catalog{
+.body-catalog{
     /* background-color: rgb(243, 91, 91); */
     width: 100%;
   }
