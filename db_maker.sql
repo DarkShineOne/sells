@@ -27,6 +27,7 @@ create table Item(
 	Id SERIAL primary key,
 	Name VARCHAR(255),
 	Price FLOAT,
+	Rating NUMERIC(2, 1),
 	ItemCount INT,
 	logourl VARCHAR(255),
 	ItemLink VARCHAR(255),
