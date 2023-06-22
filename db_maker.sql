@@ -44,7 +44,11 @@ create table DiscountType(
 
 create table Characteristic(
 	Id Serial primary key,
-	Name VARCHAR(255)
+	Name VARCHAR(255),
+	CategoryId int,
+	CONSTRAINT fk_Category
+		FOREIGN KEY (CategoryId)
+			REFERENCES Category(Id)
 );
 
 create table ItemToCharacteristic(
