@@ -7,14 +7,16 @@ export default{
 
 <template>
       <div class="sidebar">
+        <div class="side_test">
         <div class="sidebar_search sidebar_element">Тут будет поиск и будет он input</div>
-        <div class="sidebar_consultant sidebar_element">Тут будет консультант</div>
+        <div class="sidebar_consultant sidebar_element">Тут будет консультант, но скорее всего нет, зачем он?</div>
         <div class="sidebar_parameters sidebar_element">
             Тут будут параметры<br>
             И тут будут будут параметры<br>
-            И тут тоже будут параметры<br>
-            Тут везде будут параметры
+            Но сперва их нужно получить из БД<br>
+            
         </div>
+      </div>
       </div>
 </template>
 
@@ -25,6 +27,14 @@ export default{
     z-index: 10;
     /* background-color: rgb(255, 255, 255); */
     border-radius:8px
+  }
+
+  .side_test{
+    position: sticky;
+    position: -webkit-sticky;
+    top:12px;
+    bottom: 25px;
+    
   }
 
   .sidebar_element{

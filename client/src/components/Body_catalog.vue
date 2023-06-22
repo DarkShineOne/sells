@@ -1,23 +1,25 @@
 <script>
 import Bilet from "@/components/Bilet"
 import BiletObj from "@/components/BiletObj"
-import PostService from "@/PostService"
+import CatalogPages from "@/components/CatalogPages"
 export default{
   components:{
-        Bilet,BiletObj
+        Bilet,BiletObj,CatalogPages
     },
   data(){
     return{
-      products:[]
     }
   },
-  async created(){
-    try{
-      this.products = await Promise.resolve(PostService.getPost(6))
-    } catch(err){
-      console.log("error")
-    }
+  created(){
+    this.$store.commit('loadPage',1)
+
   }
+  // methods:{
+  //   async loadpage(n){
+  //     location.href="#"
+  //     this.$store.commit('loadPage',n)
+  //   }
+  //}
     //!!!!СДЕЛАТЬ МЕТОД ДЛЯ СОЗДАНИЯ BILET и сунуть его в V-FOR!!!!
 }
 </script>
@@ -46,14 +48,16 @@ export default{
           </select>
         </div>
       </div>
-    
-      <div v-for="prdct in products">
-        
 
+
+      <CatalogPages/>
+      <div v-for="prdct in this.$store.state.products">
         <BiletObj 
         :product = "prdct"
         />
+        
       </div>
+      <CatalogPages/>
     </div>
 </template>
 

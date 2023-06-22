@@ -11,11 +11,11 @@ export default{
 </script>
 
 <template>
-  <div class="header"></div>
+  <!-- <div class="header"></div> -->
   <div class="main-block">
-    <div class="bread-crumb">
+    <!-- <div class="bread-crumb">
       хлебные крошки
-    </div>    
+    </div>     -->
     <h1 class="title-name">Категория</h1>
     <div class="work-block">
       <Sidebar/>
