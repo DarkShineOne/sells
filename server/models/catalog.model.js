@@ -8,18 +8,34 @@ const Catalog = function(plates){
     this.price = plates.price
 }
 
-Catalog.load = ()=>{
+// Catalog.load = ()=>{
 
+//     return new Promise((resolve, reject) =>{
+//         pool.query(`select * from Item limit 18;`, 
+//         async function(err,res){
+//             if (err) reject(err);
+//             //console.log(res)
+//             resolve(JSON.parse(JSON.stringify(res.rows)))                
+//         })
+//     });
+// }
+
+Catalog.pages = (query)=>{
     return new Promise((resolve, reject) =>{
-        pool.query(`select * from Item`, 
+        console.log(query.pages)
+        if (query.pages == undefined)
+        var q = `select * from Item limit 18;`
+        else
+        var q = `select * from Item limit 18 offset ${(query.pages-1)*18};`
+
+        pool.query(`${q}`, 
         async function(err,res){
             if (err) reject(err);
-            console.log(res)
+            //console.log(res)
             resolve(JSON.parse(JSON.stringify(res.rows)))                
         })
     });
 }
-
-//expand here
+//expand herey
 
 module.exports = Catalog

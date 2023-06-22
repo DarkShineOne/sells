@@ -1,7 +1,7 @@
 module.exports ={
-    HOST: "196.168.0.106", //make this non local when need
-    USER: "darkshine",
-    PASSWORD: "19p6vv",
-    DB: "testdb",
+    HOST: 'localhost', //make this non local when need
+    USER: 'postgres',
+    PASSWORD: '19p6vv',
+    DB: 'test',
     PORT: 5432
 }
