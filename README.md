@@ -1,7 +1,7 @@
 # sells
 server
 
-npm install body-parser express nodemon
+npm install express nodemon pg
 
 client
 
