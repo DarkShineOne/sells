@@ -8,8 +8,6 @@ export default{
     },
     methods:{
     href(link,add){
-      this.$store.commit('increment')
-      console.log(this.$store.state.count)
       if(add)
        location.href='https://www.dns-shop.ru'+link+add;
       else location.href='https://www.dns-shop.ru'+link
