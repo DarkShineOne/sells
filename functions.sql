@@ -136,3 +136,10 @@ AS $$
 	where item.categoryid = category group by item.id having string_agg(ItemToCharacteristic.value,', ') like all (ARRAY[parameters]) limit 18 offset 18*(page-1);
 $$ LANGUAGE SQL;
 -- select * from getItemsWithParameters(1, ARRAY['%2200 Вт%', '%пластик%', '%металл%'], 1);
+
+
+
+-- select item.name, item.price, item.rating, string_agg(ItemToCharacteristic.value,', '), item.logourl, item.itemlink from item
+--	join ItemToCharacteristic on (ItemToCharacteristic.itemid = item.id)
+--	join Characteristic on (Characteristic.id = ItemToCharacteristic.characteristicid)
+--	where item.categoryid = category group by item.name, item.price, item.rating,item.logourl, item.itemlink order by sortvalue limit 18 offset 18*(page-1);
