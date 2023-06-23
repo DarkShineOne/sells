@@ -13,3 +13,10 @@ exports.pages = async(req, res) =>{
     })
     res.send(post)
 }
+
+exports.category = async(req, res) =>{
+    const post = await Catalog.category(req.query).catch((err) =>{
+        console.log(err)
+    })
+    res.send(post)
+}
