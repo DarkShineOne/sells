@@ -84,3 +84,55 @@ from item join ItemToCharacteristic on (ItemToCharacteristic.itemid = item.id)
 join iteminsale on (iteminsale.itemid = item.id) group by item.id, iteminsale.priority, iteminsale.price order by iteminsale.priority desc, string_agg(ItemToCharacteristic.value,', ');;
 $$ LANGUAGE sql;
 
+-- Получить все предметы
+drop function getCatalogPage;
+create function getCatalogPage(page int) returns table (
+	Name varchar(255),
+	Price float,
+	Rating text,
+	Characteristic text,
+	logourl varchar(255),
+	itemlink varchar(255))
+AS $$
+	select item.name, item.price, item.rating, string_agg(ItemToCharacteristic.value,', '), item.logourl, item.itemlink from item 
+	join ItemToCharacteristic on (ItemToCharacteristic.itemid = item.id) group by item.id limit 18 offset 18*(page-1);
+$$ LANGUAGE SQL;
+-- select * from getCatalogPage(1);
+
+-- Получить все категории
+create function getCategories() returns setof Category AS $$
+	select * from category;
+$$ LANGUAGE SQL;
+-- select * from getCategories();
+
+-- Получить все товары по категории
+drop function getItemsFromCategory;
+create function getItemsFromCategory(category int[], page int) returns table(
+	Name varchar(255),
+	Price float,
+	Rating text,
+	Characteristic text,
+	logourl varchar(255),
+	itemlink varchar(255),
+	category int)
+AS $$
+	select item.name, item.price, item.rating, string_agg(ItemToCharacteristic.value,', '), item.logourl, item.itemlink,item.categoryid from item 
+	join ItemToCharacteristic on (ItemToCharacteristic.itemid = item.id) where item.categoryid = any(ARRAY[category]) group by item.id limit 18 offset 18*(page-1);
+$$ LANGUAGE SQL;
+-- select * from getItemsFromCategory(ARRAY[1,2,3],2);
+
+-- Получить все предметы с определенными характеристиками
+create function getItemsWithParameters(category int, parameters varchar(255)[], page int) returns table(
+	Name varchar(255),
+	Price float,
+	Rating text,
+	Characteristic text,
+	logourl varchar(255),
+	itemlink varchar(255))
+AS $$
+	select item.name, item.price, item.rating, string_agg(ItemToCharacteristic.value,', '), item.logourl, item.itemlink from item
+	join ItemToCharacteristic on (ItemToCharacteristic.itemid = item.id)
+	join Characteristic on (Characteristic.id = ItemToCharacteristic.characteristicid)
+	where item.categoryid = category group by item.id having string_agg(ItemToCharacteristic.value,', ') like all (ARRAY[parameters]) limit 18 offset 18*(page-1);
+$$ LANGUAGE SQL;
+-- select * from getItemsWithParameters(1, ARRAY['%2200 Вт%', '%пластик%', '%металл%'], 1);
