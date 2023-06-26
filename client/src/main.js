@@ -7,7 +7,9 @@ const store = createStore({
       return {
         count: 0,
         products:[],
-        page:1
+        page:1,
+        sort:0,
+        category:0
       }
     },
     mutations: {
@@ -19,9 +21,12 @@ const store = createStore({
         state.page--
       },
 
-      async loadPage(state,d){
+      async loadPage(state){
         try{
-          state.products = await Promise.resolve(PostService.getPost(d))
+          var loadStr = ""
+          if (this.state.sort) loadStr+="&sort="+this.state.sort;
+          if (this.state.category) loadStr+="&category="+this.state.category;
+          state.products = await Promise.resolve(PostService.getPost('?page='+this.state.page+loadStr))
         } catch(err){
           console.log("error")
         }

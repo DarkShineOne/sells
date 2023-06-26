@@ -15,9 +15,9 @@ export default{
 <template>
 
 <div class="catalog_pages">
-    <button class="buttons" @click=" this.$store.commit('decrimentPage');loadpage(this.$store.state.page)" :disabled="this.$store.state.page == 1">PREV</button>
+    <button class="buttons" @click=" this.$store.commit('decrimentPage');loadpage()" :disabled="this.$store.state.page == 1">PREV</button>
     ТУТ БУДУТ ЦИФРЫ СТРАНИЦ, НО ПОКА ИХ НЕТ
-    <button class="buttons" :style="{'margin-left': 'auto', 'margin-right': '0em'}" @click=" this.$store.commit('incrementPage');loadpage(this.$store.state.page)">NEXT</button>
+    <button class="buttons" :style="{'margin-left': 'auto', 'margin-right': '0em'}" @click=" this.$store.commit('incrementPage');loadpage()">NEXT</button>
 </div>
 
 </template>

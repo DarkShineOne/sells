@@ -20,7 +20,6 @@ export default{
   
 }
 
-//ЭТО ТЕСТОВАЯ ХУЙНЯ, РАБОТАЕТ ПО ОБЪЕКТУ
 </script>
 
 <template>
@@ -46,7 +45,7 @@ export default{
             </div>
             <div class="bilet_avaible">
                 AVAIBLE
-                <a v-if="product.itemcount > 0">В наличие {{ product.itemcount }}шт. </a>
+                <a v-if="product.itemcount > 0">В наличии {{ product.itemcount }}шт. </a>
                 <a v-else>Нет в наличии</a>
             </div>
 
@@ -208,111 +207,4 @@ export default{
 
 }
 
-
-/*
-  .bilet_border1{
-    display: flex;
-    flex-direction: column;
-    margin-top: 12px;
-    margin-right: 20px;
-    height: 224px;
-    width: 880px;
-    gap: 10px;
-    background-color:#fff;
-    border-radius:8px;
-    box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.16);
-    
-  }
-
-  .bilet_content1{
-    margin: 16px 24px;
-    display: flex;
-    box-sizing: border-box;
-  }
-  .bilet_img1{
-    margin-bottom: 16px;
-    margin-right: 16px;
-  }
-
-  .bilet_info1{
-    width: 519px;
-    height: 146px;
-  }
-
-  .info_name1{
-    height:72px
-  }
-
-
-  .info_vobles1{
-    height:18px;
-    margin-bottom: 12px;
-    margin-top: 8px;
-    background-color: #fff0ef;
-    width: fit-content;
-    border-radius: 4px;
-    font-family: 'PT Sans';
-    font-style: normal;
-    font-weight: 400;
-    font-size: 12px;
-    line-height: 14px;
-    padding: 4px;
-    color: #FF6558;
-
-    display: flex;
-    align-items: center;
-
-  }
-
-  .bought_info1{
-    text-align: right;
-  }
-
-  .buttons1{
-	background: rgb(255, 255, 255);
-	border-radius: 8px;
-	transition: all 0.5s ease;
-  border: 1px solid #D9D9D9;
-}
-  .buy_button1 {
-	width: 89px;
-  height: 44px;
-  margin-left: 4px;
-  
-}
-
-.buy_button1:hover{
-  background-image: linear-gradient(#f7a15b, #FC8507);
-  color:#fff;
-}
-
-.like_button1 {
-  width: 44px;
-  height: 44px;
-  color:#D9D9D9;
-  font-size: small;
-  margin:none;
-  background-image: url(./img/heartlike2.svg);
-  padding: 2px;
-  background-size: cover;
-}
-
-.like_button1:hover{
-	background-color: #f3f1f1;
-}
-
-.price1{
-  color:#FC8507;
-  font-size: 18px;
-}
-
-.old_price1{
-  text-decoration: line-through;
-  color:gray;
-  font-size: 12px;
-}
-
-.any_price{
-  
-}*/
 </style>
