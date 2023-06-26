@@ -12,7 +12,6 @@ export default{
       <div class="sidebar">
         <div class="side_test">
         <div class="sidebar_search sidebar_element"><input class="search_element" placeholder="Поиск"></div>
-        <div class="sidebar_consultant sidebar_element">Тут будет консультант, но скорее всего нет, зачем он?</div>
         <div class="sidebar_parameters sidebar_element">
             Тут будут параметры но сперва категории<br>
             И тут будут будут параметры<br>
@@ -57,9 +56,6 @@ export default{
     
   }
 
-  .sidebar_consultant{
-    height:123px;
-  }
 
   .search_element{
     background: #f2f2f2;

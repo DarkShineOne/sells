@@ -1,7 +1,10 @@
 /* eslint-disable no-unused-vars */
 import axios from "axios";
 
-const url = 'http://localhost:5000/api/item'
+//const url = 'http://localhost:5000/api/item'
+const url = 'http://'+document.URL.substr(7).substr(0,document.URL.substr(7).indexOf(":"))+':5000/api/item'
+
+
 
 class PostService{
     static getPost(d){

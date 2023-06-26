@@ -14,6 +14,9 @@ export default{
     },
     log(){
       console.log(JSON.stringify(this.product))
+    },
+    delslash(){   
+      return this.product.string_agg.replaceAll("\\\\",", ").replaceAll("\\",", ").replaceAll("NULL","").replaceAll(", ,",",")
     }
   }
     
@@ -28,7 +31,7 @@ export default{
             <div class ="bilet_img"><img :src="product.logourl" width="160" height="160" /></div>
             <div class="bilet_info">
             <div class="info_name" @click="href(product.itemlink)">
-            {{ product.name }} <!-- ТУТ НЕХВАТАЕТ ПАРАМЕТРОВ ТОВАРА! НУЖЕН СЕЛЕКТ -->
+            {{ product.name +'[' + delslash() + ']' }} <!-- ТУТ НЕХВАТАЕТ ПАРАМЕТРОВ ТОВАРА! НУЖЕН СЕЛЕКТ -->
             </div>
             <div class="info_vobles" @click="log()">
                 Скидка: 

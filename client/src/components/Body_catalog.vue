@@ -8,29 +8,30 @@ export default{
     },
   data(){
     return{
-      selectedSort:'Сначала недорогие',
-      selectedGroup:String,
-      picked:String
+      selectedSort:0,
+      selectedName:["Без сортировки","Сначала дорогие","Сначала недорогие","Сначала популярные","По скидке(%)"],
     }
   },
 
   created(){
-    this.$store.commit('loadPage',1)
+    this.$store.commit('loadPage')
 
   },
 
   methods:{
     logSort(){
+      this.$store.commit('setSort',this.selectedSort)
+      this.$store.commit('resetPage')
+      this.$store.commit('loadPage')
       console.log("Sorted by:"+this.selectedSort)
-      document.getElementsByClassName("testkal")[0].style.visibility="hidden"
-    },
-    logGroup(){
-      console.log("Group by:"+this.selectedGroup)
+      document.getElementsByClassName("sort")[0].style.visibility="hidden"
+      //this.$store.commit('incrementPage')
+
     },
     showSort(){
-      if(document.getElementsByClassName("testkal")[0].style.visibility == "")
-        document.getElementsByClassName("testkal")[0].style.visibility="hidden"
-      else document.getElementsByClassName("testkal")[0].style.visibility=""
+      if(document.getElementsByClassName("sort")[0].style.visibility == "")
+        document.getElementsByClassName("sort")[0].style.visibility="hidden"
+      else document.getElementsByClassName("sort")[0].style.visibility=""
     }
   }
  
@@ -39,12 +40,17 @@ export default{
 
 <template>
       <div class="body-catalog">
+        <!--
+
+        ВЫНЕСТИ В ОТДЕЛЬНЫЙ VUE ФАЙЛ
+        
+        -->
       <div class="catalog_sort">
         <div style="width: 250px;">
           Сортировка: 
-          <span  class="catalog_select" @click="showSort">{{ selectedSort }}</span>
+          <span  class="catalog_select" @click="showSort">{{ selectedName[selectedSort] }}</span>
         </div>
-        <div class="sort_group" style="margin-left:40px">
+        <!-- <div class="sort_group" style="margin-left:40px">
           Группировка: 
           <select class="catalog_select"  v-model="selectedGroup" required @change="logGroup" >
             <option :selected="true" value="out">Отсутсвует</option>
@@ -52,14 +58,18 @@ export default{
             <option value="nal">По наличию</option>
             <option value="cat">По категории</option>
           </select>
-        </div>
-        <div class="testkal" style="visibility: hidden;">
-          <label class="testkal_label"><input type="radio" value="Сначала недорогие" v-model="selectedSort" required @change="logSort"/>Сначала недорогие</label>
-          <label class="testkal_label"><input type="radio" value="Сначала дорогие" v-model="selectedSort" required @change="logSort"/>Сначала дорогие</label>
-          <label class="testkal_label"><input type="radio" value="Сначала популярные" v-model="selectedSort" required @change="logSort"/>Сначала популярные</label>
-          <label class="testkal_label"><input type="radio" value="По скидке(%)" v-model="selectedSort" required @change="logSort"/>По скидке(%)</label>
-          <label class="testkal_label"><input type="radio" value="Сначала обсуждаемые" v-model="selectedSort" required @change="logSort"/>Сначала обсуждаемые</label>
-          <label class="testkal_label"><input type="radio" value="Сначала с лучшей оценкой" v-model="selectedSort" required @change="logSort"/>Сначала с лучшей оценкой</label>
+        </div> -->
+        <!-- No testkal?
+
+        ВЫНЕСТИ В ОТДЕЛЬНЫЙ VUE ФАЙЛ
+
+        -->
+        <div class="sort" style="visibility: hidden;">
+          <label class="sort_label"><input type="radio" value="0" v-model="selectedSort" required @change="logSort"/>Без сортировки</label>
+          <label class="sort_label"><input type="radio" value="1" v-model="selectedSort" required @change="logSort"/>Сначала дорогие</label>
+          <label class="sort_label"><input type="radio" value="2" v-model="selectedSort" required @change="logSort"/>Сначала недорогие</label>
+          <label class="sort_label"><input type="radio" value="3" v-model="selectedSort" required @change="logSort"/>Сначала популярные</label>
+          <!-- <label class="sort_label"><input type="radio" value="3" v-model="selectedSort" required @change="logSort"/>По скидке(%)</label> -->
 
         </div>
       </div>
@@ -86,7 +96,7 @@ export default{
   .sort_group{
     display: flex;
   }
-  .testkal{
+  .sort{
     background-color:#fff;
     font-size: 16px;
     border-radius:8px;
@@ -95,12 +105,12 @@ export default{
     position: relative;
     height: fit-content;;
     width: 298px;
-    top: 125px;
-    left: -495px;
+    top: 100px;
+    left: -235px;
      
   }
   
-  .testkal_label{
+  .sort_label{
     display: flex;
     cursor: pointer;
     vertical-align: center;
@@ -108,7 +118,7 @@ export default{
     
   }
 
-  .testkal_label input[type=radio] {
+  .sort_label input[type=radio] {
     width: 16px;
     height: 16px;
     margin: 3px 10px 2px 0px;
@@ -116,11 +126,11 @@ export default{
     /*COLOR NADA*/
   }
 
-  /* .testkal_label input[type=radio]:active{
+  /* .sort_label input[type=radio]:active{
     border: 5px solid #fc8507;
   } */
   
-  .testkal_label:hover{
+  .sort_label:hover{
     background-color: #fff7da;
   }
 

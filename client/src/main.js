@@ -21,6 +21,18 @@ const store = createStore({
         state.page--
       },
 
+      resetPage (state){
+        state.page = 1
+      },
+
+      setSort (state,srt){
+        state.sort = srt
+      },
+
+      setCategory (state,cat){
+        state.category = cat
+      },
+
       async loadPage(state){
         try{
           var loadStr = ""
