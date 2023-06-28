@@ -23,6 +23,11 @@ create table Category(
 	Name VARCHAR(255)
 );
 
+create table DiscountType(
+	Id SERIAL Primary key,
+	Name VARCHAR(255)
+);
+
 create table Item(
 	Id SERIAL primary key,
 	Name VARCHAR(255),
@@ -32,15 +37,18 @@ create table Item(
 	logourl VARCHAR(255),
 	ItemLink VARCHAR(255),
 	CategoryId int NOT NULL,
+	Priority int,
+	DiscType int,
+	Discount int,
+	PriceWithDiscount int,
 	CONSTRAINT fk_Category
 		FOREIGN KEY(CategoryId)
-			REFERENCES Category(Id)
+			REFERENCES Category(Id),
+	CONSTRAINT fk_DiscountType
+		FOREIGN KEY(DiscType)
+			REFERENCES DiscountType(id)
 );
 
-create table DiscountType(
-	Id SERIAL Primary key,
-	Name VARCHAR(255)
-);
 
 create table Characteristic(
 	Id Serial primary key,
@@ -63,24 +71,6 @@ create table ItemToCharacteristic(
 			REFERENCES Characteristic(Id)
 );
 
-create table ItemInSale(
-	ItemId int,
-	SaleId int,
-	Priority int,
-	Discount int,
-	DiscType int,
-	Price FLOAT,
-	CONSTRAINT fk_Sale
-		FOREIGN KEY(SaleId)
-			REFERENCES Sale(Id),
-	CONSTRAINT fk_Item
-		FOREIGN KEY(ItemId)
-			REFERENCES Item(Id),
-	CONSTRAINT fk_DiscountType
-		FOREIGN KEY(DiscType)
-			REFERENCES DiscountType(id)
-);
-
 create table customer_account(
 	UserID int,
 	Username varchar(255),
@@ -92,7 +82,7 @@ create table customer_account(
 );
 
 -- Высчет цены товара со скидкой
-CREATE OR REPLACE FUNCTION ItemPriceWithDiscount_func()
+/**CREATE OR REPLACE FUNCTION ItemPriceWithDiscount_func()
   RETURNS trigger
   AS
 $$
@@ -101,11 +91,11 @@ BEGIN
 IF (new.DiscType = 1)
 	THEN
 		BEGIN
-			New.Price = (select item.price from item where item.id = new.itemid)/100*(100-new.Discount);
+			New.PriceWithDiscount = (select item.price from item where item.id = new.id)/100*(100-new.Discount);
 		END;
 	ELSE
 		BEGIN
-			New.Price = (select item.price from item where item.id = new.itemid)-new.Discount;
+			New.PriceWithDiscount = (select item.price from item where item.id = new.id)-new.Discount;
 		END;
 	END IF;
 return NEW;
@@ -114,8 +104,8 @@ $$
 LANGUAGE 'plpgsql';
 
 create trigger ItemPriceWithDiscount
-	BEFORE INSERT ON ItemInSale
-	FOR EACH ROW EXECUTE FUNCTION ItemPriceWithDiscount_func();
+	BEFORE INSERT ON Item
+	FOR EACH ROW EXECUTE FUNCTION ItemPriceWithDiscount_func();**/
 
 
 insert into category(Name) values (UNNEST(ARRAY[
@@ -184,6 +174,13 @@ unnest(array[
 		19,	19,	19,	19,	19,			
 		20,	20,	20,	20				
 	]));
+	
+insert into discounttype (Name) values (UNNEST(ARRAY[
+	'Рубли',
+	'Проценты']));
+
+select * from item;
+
 -- Полезная фича объединения всех столбцов в одну строку
 -- select item.id, string_agg(ItemToCharacteristic.value,', ') from item join ItemToCharacteristic on (ItemToCharacteristic.itemid = item.id) group by item.id;
 
