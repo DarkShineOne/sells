@@ -9,14 +9,14 @@ const Catalog = require("../models/catalog.model")
 
 exports.pages = async(req, res) =>{
     const post = await Catalog.pages(req.query).catch((err) =>{
-        console.log(err)
+        console.log(err.code)
     })
     res.send(post)
 }
 
 exports.category = async(req, res) =>{
     const post = await Catalog.category(req.query).catch((err) =>{
-        console.log(err)
+        console.log(err.code)
     })
     res.send(post)
 }
