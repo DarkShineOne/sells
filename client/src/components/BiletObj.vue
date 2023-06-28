@@ -9,14 +9,20 @@ export default{
     methods:{
     href(link,add){
       if(add)
-       location.href='https://www.dns-shop.ru'+link+add;
-      else location.href='https://www.dns-shop.ru'+link
+      //console.log('https://www.dns-shop.ru'+link+add)
+       location.href='https://www.dns-shop.ru'+link.replaceAll(" ","")+add;
+      else location.href='https://www.dns-shop.ru'+link.replaceAll(" ","")
+        //console.log('https://www.dns-shop.ru'+link.replaceAll(" ",""))
     },
     log(){
       console.log(JSON.stringify(this.product))
+      console.log(JSON.stringify(this.$store.state.categories))
     },
     delslash(){   
       return this.product.string_agg.replaceAll("\\\\",", ").replaceAll("\\",", ").replaceAll("NULL","").replaceAll(", ,",",")
+    },
+    addSpaces(num){
+      return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ")
     }
   }
     
@@ -31,14 +37,15 @@ export default{
             <div class ="bilet_img"><img :src="product.logourl" width="160" height="160" /></div>
             <div class="bilet_info">
             <div class="info_name" @click="href(product.itemlink)">
-            {{ product.name +'[' + delslash() + ']' }} <!-- ТУТ НЕХВАТАЕТ ПАРАМЕТРОВ ТОВАРА! НУЖЕН СЕЛЕКТ -->
+            {{ product.name +'[' + delslash() + ']' }} <!-- ТУТ НЕХВАТАЕТ ПАРАМЕТРОВ ТОВАРА! НУЖЕН СЕЛЕКТ -->  <!-- Уже хватает -->
             </div>
             <div class="info_vobles" @click="log()">
-                Скидка: 
+                Скидка: <a v-if= "product.disctype == 1"> {{ addSpaces(product.discount) }}₽</a>
+                        <a v-if= "product.disctype == 2"> {{ product.discount }}%</a>
             </div>
             <div>
                 
-                STATS: <a class="bilet_stars" @click="href(product.itemlink,'opinion')">
+                  <a class="bilet_stars" @click="href(product.itemlink,'opinion')">
                   <a v-for="i in Number(product.rating[0])"> <img src="./img/full_star.svg"/> </a> 
                   <a v-if="Number(product.rating[2])>= 5"> <img src="./img/half_star.svg"/> </a>
                   <a v-else-if="Number(product.rating[0])!= 5"> <img src="./img/empty_star.svg"/> </a>
@@ -47,7 +54,7 @@ export default{
               </a>
             </div>
             <div class="bilet_avaible">
-                AVAIBLE
+                
                 <a v-if="product.itemcount > 0">В наличии {{ product.itemcount }}шт. </a>
                 <a v-else>Нет в наличии</a>
             </div>
@@ -57,11 +64,11 @@ export default{
             
           <div class="bought_info">
             <div class="price">
-              <span class="old_price">{{ product.price }}</span><br>
+              <span class="old_price">{{ addSpaces(product.price) }}</span><br>
 
-              {{ product.pricewithdiscount }}₽ <!-- СКИДКИ НЕТ В ВЫБОРКЕ! СКИДКИ ВООБЩЕ В БД НЕТ, НО КАК ПОЯВИТСЯ ТУТ ВСТАВИТЬ {{ (product.price * product.discont).toFixed() }} -->
+              {{ addSpaces(product.pricewithdiscount) }}₽  
             </div>
-            <div class="credit_price">от {{ (product.price/11).toFixed() }}₽/ мес.</div> <!-- Рассрочка пока считается просто делением на 11 и округлением -->
+            <div class="credit_price">от {{ addSpaces((product.pricewithdiscount/11).toFixed()) }}₽/ мес.</div> <!-- Рассрочка пока считается просто делением на 11 и округлением -->
             
             <button class="like_button buttons">ᅠ</button>
             <button @click="href(product.itemlink)" class ="buy_button buttons">КУПИТЬ</button>

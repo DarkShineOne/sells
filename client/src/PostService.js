@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import axios from "axios";
 
-const urlCategory = 'http://localhost:5000/api/category'
+const urlCategory = 'http://'+document.URL.substr(7).substr(0,document.URL.substr(7).indexOf(":"))+':5000/api/category'
 const url = 'http://'+document.URL.substr(7).substr(0,document.URL.substr(7).indexOf(":"))+':5000/api/item'
 
 

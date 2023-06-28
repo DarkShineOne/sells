@@ -15,9 +15,9 @@ function howSort(type){
     //mb rewrite to dict?
     switch(type){
         case "1":
-            return ["price", "desc"]
+            return ["pricewithdiscount", "desc"]
         case "2": 
-            return ["price", "asc"]
+            return ["pricewithdiscount", "asc"]
         case "3": 
             return ["rating", "desc"]
         default:

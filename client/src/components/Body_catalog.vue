@@ -13,11 +13,6 @@ export default{
     }
   },
 
-  created(){
-    this.$store.commit('loadPage')
-
-  },
-
   methods:{
     logSort(){
       this.$store.commit('setSort',this.selectedSort)
@@ -50,20 +45,6 @@ export default{
           Сортировка: 
           <span  class="catalog_select" @click="showSort">{{ selectedName[selectedSort] }}</span>
         </div>
-        <!-- <div class="sort_group" style="margin-left:40px">
-          Группировка: 
-          <select class="catalog_select"  v-model="selectedGroup" required @change="logGroup" >
-            <option :selected="true" value="out">Отсутсвует</option>
-            <option value="proizv">По производителю</option>
-            <option value="nal">По наличию</option>
-            <option value="cat">По категории</option>
-          </select>
-        </div> -->
-        <!-- No testkal?
-
-        ВЫНЕСТИ В ОТДЕЛЬНЫЙ VUE ФАЙЛ
-
-        -->
         <div class="sort" style="visibility: hidden;">
           <label class="sort_label"><input type="radio" value="0" v-model="selectedSort" required @change="logSort"/>Без сортировки</label>
           <label class="sort_label"><input type="radio" value="1" v-model="selectedSort" required @change="logSort"/>Сначала дорогие</label>
@@ -93,9 +74,6 @@ export default{
     width: 100%;
   }
 
-  .sort_group{
-    display: flex;
-  }
   .sort{
     background-color:#fff;
     font-size: 16px;

@@ -5,7 +5,11 @@ import Body_catalog from '@/components/Body_catalog'
 export default{
   components:{
     Sidebar, Body_catalog
-  }
+  },
+  created(){
+    this.$store.commit('loadPage')
+    this.$store.commit('loadCategory')
+  },
 
 }
 </script>
@@ -16,7 +20,7 @@ export default{
     <!-- <div class="bread-crumb">
       хлебные крошки
     </div>     -->
-    <h1 class="title-name">Категория</h1>
+    <h1 class="title-name">Акции</h1>
     <div class="work-block">
       <Sidebar/>
       <Body_catalog/>
