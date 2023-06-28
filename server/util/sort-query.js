@@ -34,5 +34,5 @@ function howPrice(prices){
      if(prices[0] > prices[1]){
         return howPrice([prices[1],prices[0]])
      }
-    return `and item.price between ${prices[0]} and ${prices[1]}`
+    return `and item.pricewithdiscount between ${prices[0]} and ${prices[1]}`
 }
