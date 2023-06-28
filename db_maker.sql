@@ -188,3 +188,5 @@ select * from item;
 -- select item.name, itemtocharacteristic.value, category.name from item join ItemToCharacteristic on (item.id = itemtoCharacteristic.itemid) 
 -- join Characteristic on (Characteristic.id = ItemToCharacteristic.characteristicid) 
 -- join category on (category.id = Characteristic.categoryid) where characteristic.name like '%объем%';
+
+-- \copy item (name, price, rating, itemcount, logourl, itemlink, categoryid, priority, disctype, discount,  pricewithdiscount) FROM 'C:/Users/frago/DOWNLO~1/totoro.txt' with (format csv,encoding 'UTF8');
