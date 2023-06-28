@@ -31,7 +31,6 @@ function howCategory(categories){
 }
 
 function howPrice(prices){
-    console.log(prices)
      if(prices[0] > prices[1]){
         return howPrice([prices[1],prices[0]])
      }

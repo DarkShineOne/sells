@@ -1,5 +1,5 @@
 exports.pageQuery= (params)=>{
-    return `select item.id, item.name, item.price, item.rating, string_agg(ItemToCharacteristic.value,', '),
+    return `select item.id, item.name, item.price, item.rating, item.discount, item.disctype, item.pricewithdiscount, string_agg(ItemToCharacteristic.value,', '),
     item.logourl, item.itemlink, item.itemcount
     from item
     join ItemToCharacteristic on (ItemToCharacteristic.itemid = item.id)
