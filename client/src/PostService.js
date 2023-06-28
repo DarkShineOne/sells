@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import axios from "axios";
 
-//const url = 'http://localhost:5000/api/item'
+const urlCategory = 'http://localhost:5000/api/category'
 const url = 'http://'+document.URL.substr(7).substr(0,document.URL.substr(7).indexOf(":"))+':5000/api/item'
 
 
@@ -21,8 +21,20 @@ class PostService{
             }
         })
     }
-    // delete 
-    // create?
+
+    static getCategory(){
+        return new Promise(async (resolve, reject) => {
+            try {
+                let res = await axios.get(urlCategory)
+                let data = res.data
+                resolve(
+                    data
+                )
+            } catch(err) {
+                reject(err);
+            }
+        })
+    }
 }
 
 export default PostService;

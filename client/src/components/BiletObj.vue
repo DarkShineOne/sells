@@ -59,7 +59,7 @@ export default{
             <div class="price">
               <span class="old_price">{{ product.price }}</span><br>
 
-              {{ product.price }}₽ <!-- СКИДКИ НЕТ В ВЫБОРКЕ! СКИДКИ ВООБЩЕ В БД НЕТ, НО КАК ПОЯВИТСЯ ТУТ ВСТАВИТЬ {{ (product.price * product.discont).toFixed() }} -->
+              {{ product.pricewithdiscount }}₽ <!-- СКИДКИ НЕТ В ВЫБОРКЕ! СКИДКИ ВООБЩЕ В БД НЕТ, НО КАК ПОЯВИТСЯ ТУТ ВСТАВИТЬ {{ (product.price * product.discont).toFixed() }} -->
             </div>
             <div class="credit_price">от {{ (product.price/11).toFixed() }}₽/ мес.</div> <!-- Рассрочка пока считается просто делением на 11 и округлением -->
             
