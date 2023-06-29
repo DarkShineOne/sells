@@ -1,7 +1,7 @@
 
 const pool = require('./db')
 const util = require('../util/sort-query')
-const queryCreator = require('../util/query-creator')
+const queryCreator = require('./query-creator')
 
 const Catalog = function(plates){
 }
@@ -13,8 +13,13 @@ Catalog.pages = (query)=>{
             if(err){
                 reject(err)
             }
-            else
-                resolve(JSON.parse(JSON.stringify(res.rows)))              
+            else{
+                //possible error
+                countPages = await pool.query(`${queryCreator.pageCountQuery(util(query))}`)
+                resolve(
+                    JSON.parse(JSON.stringify(countPages.rows)).concat(JSON.parse(JSON.stringify(res.rows)))
+                )
+            }            
         })
     });
 }
@@ -32,6 +37,6 @@ Catalog.category = (query) =>{
 }
 
 
-//expand herey
+//expand here
 
 module.exports = Catalog
