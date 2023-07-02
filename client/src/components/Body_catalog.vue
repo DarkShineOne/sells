@@ -1,80 +1,37 @@
-<script>
-import Bilet from "@/components/Bilet"
-import BiletObj from "@/components/BiletObj"
-import CatalogPages from "@/components/CatalogPages"
-export default{
-  components:{
-        Bilet,BiletObj,CatalogPages
-    },
-  data(){
-    return{
-      selectedSort:'Сначала недорогие',
-      selectedGroup:String,
-      picked:String
-    }
-  },
+<script lang="js" src="@/components/Body_catalog.js">
 
-  created(){
-    this.$store.commit('loadPage',1)
-
-  },
-
-  methods:{
-    logSort(){
-      console.log("Sorted by:"+this.selectedSort)
-      document.getElementsByClassName("testkal")[0].style.visibility="hidden"
-    },
-    logGroup(){
-      console.log("Group by:"+this.selectedGroup)
-    },
-    showSort(){
-      if(document.getElementsByClassName("testkal")[0].style.visibility == "")
-        document.getElementsByClassName("testkal")[0].style.visibility="hidden"
-      else document.getElementsByClassName("testkal")[0].style.visibility=""
-    }
-  }
- 
-}
 </script>
 
 <template>
-      <div class="body-catalog">
-      <div class="catalog_sort">
-        <div style="width: 250px;">
-          Сортировка: 
-          <span  class="catalog_select" @click="showSort">{{ selectedSort }}</span>
-        </div>
-        <div class="sort_group" style="margin-left:40px">
-          Группировка: 
-          <select class="catalog_select"  v-model="selectedGroup" required @change="logGroup" >
-            <option :selected="true" value="out">Отсутсвует</option>
-            <option value="proizv">По производителю</option>
-            <option value="nal">По наличию</option>
-            <option value="cat">По категории</option>
-          </select>
-        </div>
-        <div class="testkal" style="visibility: hidden;">
-          <label class="testkal_label"><input type="radio" value="Сначала недорогие" v-model="selectedSort" required @change="logSort"/>Сначала недорогие</label>
-          <label class="testkal_label"><input type="radio" value="Сначала дорогие" v-model="selectedSort" required @change="logSort"/>Сначала дорогие</label>
-          <label class="testkal_label"><input type="radio" value="Сначала популярные" v-model="selectedSort" required @change="logSort"/>Сначала популярные</label>
-          <label class="testkal_label"><input type="radio" value="По скидке(%)" v-model="selectedSort" required @change="logSort"/>По скидке(%)</label>
-          <label class="testkal_label"><input type="radio" value="Сначала обсуждаемые" v-model="selectedSort" required @change="logSort"/>Сначала обсуждаемые</label>
-          <label class="testkal_label"><input type="radio" value="Сначала с лучшей оценкой" v-model="selectedSort" required @change="logSort"/>Сначала с лучшей оценкой</label>
-
-        </div>
-      </div>
-
-
-      <CatalogPages/>
-      <div v-for="prdct in this.$store.state.products">
-        <BiletObj 
-        :product = "prdct"
-        />
-        
-      </div>
-      <CatalogPages/>
-    </div>
+	<div class="body-catalog">
+		<!--
+    ВЫНЕСТИ В ОТДЕЛЬНЫЙ VUE ФАЙЛ 
+    -->
+		<div class="catalog_sort">
+			<div>
+				Сортировка:
+				<span class="catalog_select" @click="showSort_label">
+					{{ selectedName[selectedSort] }}
+				</span>
+			</div>
+			<div class="sort_changer" v-if="!hideSort">
+				<label class="sort_label" v-for="sort_elem in selectedName">
+					<label class="sort_label">
+						<input type="radio" :value="selectedName.indexOf(sort_elem)" v-model="selectedSort" required @change="loadPageWithSort" />
+						{{ sort_elem }}
+					</label>
+				</label>
+			</div>
+		</div>
+		<CatalogPages />
+		<div v-for="prdct in this.$store.state.products">
+			<BiletObj :product="prdct" />
+		</div>
+		<CatalogPages />
+	</div>
 </template>
+
+
 
 <style>
 .body-catalog{
@@ -83,10 +40,7 @@ export default{
     width: 100%;
   }
 
-  .sort_group{
-    display: flex;
-  }
-  .testkal{
+  .sort_changer{
     background-color:#fff;
     font-size: 16px;
     border-radius:8px;
@@ -95,12 +49,12 @@ export default{
     position: relative;
     height: fit-content;;
     width: 298px;
-    top: 125px;
-    left: -495px;
+    top: 150px;
+    left: -205px;
      
   }
   
-  .testkal_label{
+  .sort_label{
     display: flex;
     cursor: pointer;
     vertical-align: center;
@@ -108,7 +62,7 @@ export default{
     
   }
 
-  .testkal_label input[type=radio] {
+  .sort_label input[type=radio] {
     width: 16px;
     height: 16px;
     margin: 3px 10px 2px 0px;
@@ -116,11 +70,11 @@ export default{
     /*COLOR NADA*/
   }
 
-  /* .testkal_label input[type=radio]:active{
+  /* .sort_label input[type=radio]:active{
     border: 5px solid #fc8507;
   } */
   
-  .testkal_label:hover{
+  .sort_label:hover{
     background-color: #fff7da;
   }
 

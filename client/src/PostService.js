@@ -1,14 +1,15 @@
 /* eslint-disable no-unused-vars */
 import axios from "axios";
 
-const url = 'http://localhost:5000/api/posts'
+const urlCategory = 'http://'+document.URL.substr(7).substr(0,document.URL.substr(7).indexOf(":"))+':5000/api/category'
+const url = 'http://'+document.URL.substr(7).substr(0,document.URL.substr(7).indexOf(":"))+':5000/api/item'
 
 class PostService{
     static getPost(d){
         // eslint-disable-next-line no-async-promise-executor
         return new Promise(async (resolve, reject) => {
             try {
-                let res = await axios.get(url+`?pages=${d}`,)
+                let res = await axios.get(url+`${d}`,)
                 let data = res.data
                 resolve(
                     data
@@ -18,8 +19,20 @@ class PostService{
             }
         })
     }
-    // delete 
-    // create?
+
+    static getCategory(d){
+        return new Promise(async (resolve, reject) => {
+            try {
+                let res = await axios.get(urlCategory+`${d}`)
+                let data = res.data
+                resolve(
+                    data
+                )
+            } catch(err) {
+                reject(err);
+            }
+        })
+    }
 }
 
 export default PostService;

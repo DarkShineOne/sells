@@ -1,19 +1,17 @@
-# vue-dev
+# sells
+server
 
-## Project setup
-```
-npm install
-```
+npm install express nodemon pg
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+client
 
-### Compiles and minifies for production
-```
-npm run build
-```
+npm i -g @vue/cli
+npm install @vue/cli-service -g
+npm install @vue/cli-plugin-babel
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+if needed 
+
+
+screen 27.06.2023
+![image](https://github.com/DarkShineOne/sells/assets/59344539/fc0ad2da-a198-41cb-8926-631500048692)
+

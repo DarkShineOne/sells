@@ -1,76 +1,70 @@
-
-
-
-<script>
-export default{
-    props: {
-    product: Object
-    },
-    methods:{
-    href(link,add){
-      if(add)
-       location.href='https://www.dns-shop.ru'+link+add;
-      else location.href='https://www.dns-shop.ru'+link
-    },
-    log(){
-      console.log(JSON.stringify(this.product))
-    }
-  }
-    
-  
-}
-
+<script lang="js" src="@/components/BiletObj.js">
 </script>
 
 <template>
-     <div class="bilet_border">
-        <div class="bilet_content">
-            <div class ="bilet_img"><img :src="product.logourl" width="160" height="160" /></div>
-            <div class="bilet_info">
-            <div class="info_name" @click="href(product.itemlink)">
-            {{ product.name }} <!-- ТУТ НЕХВАТАЕТ ПАРАМЕТРОВ ТОВАРА! НУЖЕН СЕЛЕКТ -->
-            </div>
-            <div class="info_vobles" @click="log()">
-                Скидка: 
-            </div>
-            <div>
-                
-                STATS: <a class="bilet_stars" @click="href(product.itemlink,'opinion')">
-                  <a v-for="i in Number(product.rating[0])"> <img src="./img/full_star.svg"/> </a> 
-                  <a v-if="Number(product.rating[2])>= 5"> <img src="./img/half_star.svg"/> </a>
-                  <a v-else-if="Number(product.rating[0])!= 5"> <img src="./img/empty_star.svg"/> </a>
-                  <a v-if="Number(product.rating[0] < 4)" v-for="i in 4-Number(product.rating[0])"> <img src="./img/empty_star.svg"/> </a>  
-                  {{ product.rating }}
-              </a>
-            </div>
-            <div class="bilet_avaible">
-                AVAIBLE
-                <a v-if="product.itemcount > 0">В наличии {{ product.itemcount }}шт. </a>
-                <a v-else>Нет в наличии</a>
-            </div>
-
-
-            </div>
-            
-          <div class="bought_info">
-            <div class="price">
-              <span class="old_price">{{ product.price }}</span><br>
-
-              {{ product.price }}₽ <!-- СКИДКИ НЕТ В ВЫБОРКЕ! СКИДКИ ВООБЩЕ В БД НЕТ, НО КАК ПОЯВИТСЯ ТУТ ВСТАВИТЬ {{ (product.price * product.discont).toFixed() }} -->
-            </div>
-            <div class="credit_price">от {{ (product.price/11).toFixed() }}₽/ мес.</div> <!-- Рассрочка пока считается просто делением на 11 и округлением -->
-            
-            <button class="like_button buttons">ᅠ</button>
-            <button @click="href(product.itemlink)" class ="buy_button buttons">КУПИТЬ</button>
-          </div>
-
-        </div>
-    </div>
+	<div class="bilet_border">
+		<div class="bilet_content">
+			<div class="bilet_img">
+				<img :src="product.logourl" width="160" height="160" />
+			</div>
+			<div class="bilet_info">
+				<div class="info_name" @click="goDNS(product.itemlink)">
+					{{ product.name +'[' + delslash() + ']' }}
+				</div>
+				<div class="info_vobles" @click="log()">
+					Скидка: <a v-if="product.disctype == 1"> {{ addSpaces(product.discount) }}₽</a>
+					<a v-if="product.disctype == 2"> {{ product.discount }}%</a>
+				</div>
+				<div>
+					<a class="bilet_stars" @click="goDNS(product.itemlink,'opinion')">
+						<a v-for="i in Number(product.rating[0])">
+							<img src="./img/full_star.svg" />
+						</a>
+						<a v-if="Number(product.rating[2])>= 5">
+							<img src="./img/half_star.svg" />
+						</a>
+						<a v-else-if="Number(product.rating[0])!= 5">
+							<img src="./img/empty_star.svg" />
+						</a>
+						<a v-if="Number(product.rating[0] < 4)" v-for="i in 4-Number(product.rating[0])">
+							<img src="./img/empty_star.svg" />
+						</a>
+						{{ product.rating }}
+					</a>
+				</div>
+				<div class="bilet_avaible">
+					<a v-if="product.itemcount > 0">
+						В наличии {{ product.itemcount }}шт.
+					</a>
+					<a v-else>
+						Нет в наличии
+					</a>
+				</div>
+			</div>
+			<div class="bought_info">
+				<div class="price">
+					<span class="old_price">
+						{{ addSpaces(product.price) }}
+					</span>
+					<br />
+					{{ addSpaces(product.pricewithdiscount) }}₽
+				</div>
+				<div class="credit_price">
+					от {{ addSpaces((product.pricewithdiscount/11).toFixed()) }}₽/ мес.
+				</div>
+				<!-- Рассрочка пока считается просто делением на 11 и округлением -->
+				<button class="like_button buttons">ᅠ</button>
+				<button @click="goDNS(product.itemlink)" class="buy_button buttons">
+					КУПИТЬ
+				</button>
+			</div>
+		</div>
+	</div>
 </template>
 
 
-<style>
 
+<style>
 
   .bilet_border{
     display: flex;
