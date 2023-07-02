@@ -2,6 +2,7 @@ const Catalog = require("../models/catalog.model")
 const NodeCache = require("node-cache")
 const myCache = new NodeCache({stdTTL: 600})
 
+//don't like this all
 exports.pages = async(req, res) =>{
     if (JSON.stringify(req.query) === '{"page":"1"}'){ //this is suck
         let post = myCache.get('mainPage')
