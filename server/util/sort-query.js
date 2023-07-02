@@ -1,17 +1,18 @@
 module.exports = (query) => {
     let jsonObject = {
      pageParam: typeof query.page !== "undefined" ? query.page : 1,
-     categoryParam: typeof query.category !== "undefined" ? howCategory(query.category) : "is not null",
-     sortParam: howSort(query.sort),
+     categoryParam: typeof query.category !== "undefined" ? category_handling(query.category) : "is not null",
+     sortParam: sort_handling(query.sort),
      //manufacturerParam: query.manufacturer,
-     priceParam: typeof query.price !== "undefined" ? howPrice((query.price).split(",")) : "",
+     priceParam: typeof query.price !== "undefined" ? price_handling((query.price).split(",")) : "",
      //actionParam: query.action
+     ratingParam: typeof query.rating !== "undefined" ? "and item.rating >= 4.0" : ""
     }
 
     return jsonObject
 }
 
-function howSort(type){
+function sort_handling(type){
     //mb rewrite to dict?
     switch(type){
         case "1":
@@ -20,19 +21,25 @@ function howSort(type){
             return ["pricewithdiscount", "asc"]
         case "3": 
             return ["rating", "desc"]
+        case "4":
+            return ["(pricewithdiscount/price)", "asc"]
         default:
             return ["id", "asc"]
     }
 }
 
-function howCategory(categories){
+function category_handling(categories){
     const categoryPart = `= any (ARRAY[${(categories)}])`
     return categoryPart
 }
 
-function howPrice(prices){
-     if(prices[0] > prices[1]){
-        return howPrice([prices[1],prices[0]])
-     }
+function price_handling(prices){
+
+    if(typeof prices[1] == 'undefined')
+        return price_handling([0,prices[0]])
+
+     if(prices[0] > prices[1])
+        return price_handling([prices[1],prices[0]])
+
     return `and item.pricewithdiscount between ${prices[0]} and ${prices[1]}`
 }
