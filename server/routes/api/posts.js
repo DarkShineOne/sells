@@ -4,5 +4,6 @@ module.exports = app => {
 
     router.get("/item/", catalog.pages)
     router.get("/category/", catalog.category)
+    router.get("/subcategory/", catalog.subcategory)
     app.use('/api/', router)
 }

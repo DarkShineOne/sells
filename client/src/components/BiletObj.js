@@ -15,7 +15,16 @@ export default {
               console.log(JSON.stringify(this.$store.state.categories))
             }, */
         delslash() {
-            return this.product.string_agg.replaceAll("\\\\", ", ").replaceAll("\\", ", ").replaceAll("NULL", "").replaceAll(", ,", ",")
+            var str = ""
+            for(var i in this.product.ar){
+                str += JSON.stringify(this.product.ar[i])
+                //console.log(JSON.stringify(this.product.ar[i]).replace(/"/g,"" ))
+            }
+
+            return str.replace(/"NULL"/,"").replace(/""/g,", ").replace(/"/g,"")
+            //console.log(this.product.ar.lenght())
+            //console.log(JSON.stringify(this.product.ar))
+            //return this.product.string_agg.replaceAll("\\\\", ", ").replaceAll("\\", ", ").replaceAll("NULL", "").replaceAll(", ,", ",")
         },
         addSpaces(num) {
             return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ")

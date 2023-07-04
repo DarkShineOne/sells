@@ -8,9 +8,9 @@
 				<img :src="product.logourl" width="160" height="160" />
 			</div>
 			<div class="bilet_info">
-				<div class="info_name" @click="goDNS(product.itemlink)">
+				<a class="info_name" @click="goDNS(product.itemlink)">
 					{{ product.name +'[' + delslash() + ']' }}
-				</div>
+        </a>
 				<div class="info_vobles" @click="log()">
 					Скидка: <a v-if="product.disctype == 1"> {{ addSpaces(product.discount) }}₽</a>
 					<a v-if="product.disctype == 2"> {{ product.discount }}%</a>
@@ -175,6 +175,11 @@
   text-decoration: line-through;
   color:gray;
   font-size: 12px;
+}
+
+.credit_price{
+  font-size:14px;
+  color: #333;
 }
 
 .bilet_stars{

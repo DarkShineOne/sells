@@ -7,21 +7,29 @@ const store = createStore({
             products: [],
             product_count: 0,
             cat_list: [],
+            subcat_list:[],
             cur_page: 1,
             cur_sort: 0,
             cur_price: [],
-            cur_category: []
+            cur_category: [],
+            cur_subcat:[]
         }
     },
     getters: {
         getCategories: (state, getters) => {
-            return state.categories;
+            return state.cat_list;
+        },
+        getCurCategories: (state, getters) => {
+            return state.cur_category;
         },
         getPage: (state, getters) => {
             return state.cur_page;
         },
         getProductCount: (state, getters) => {
             return state.product_count;
+        },
+        getSubCats: (state, getters) => {
+            return state.subcat_list;
         }
     },
     mutations: {
@@ -72,9 +80,18 @@ const store = createStore({
                 var loadStr = ""
                 if (find) loadStr = "?find=" + find;
                 console.log(loadStr)
-                state.categories = await Promise.resolve(PostService.getCategory(loadStr))
+                state.cat_list = await Promise.resolve(PostService.getCategory(loadStr))
             } catch (err) {
                 console.log("error categories")
+            }
+        },
+
+        async loadSubCat(state,categoryId) {
+            try {           
+                state.subcat_list = await Promise.resolve(PostService.getSubCat('?scat=' + categoryId))
+                console.log(JSON.stringify(state.subcat_list))
+            } catch (err) {
+                console.log("error subcategories")
             }
         },
     }

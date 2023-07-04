@@ -1,4 +1,6 @@
-module.exports = (query) => {
+const { query } = require("express")
+
+exports.itemObject = (query) => {
     let jsonObject = {
      pageParam: typeof query.page !== "undefined" ? query.page : 1,
      categoryParam: typeof query.category !== "undefined" ? category_handling(query.category) : "is not null",
@@ -7,9 +9,23 @@ module.exports = (query) => {
      priceParam: typeof query.price !== "undefined" ? price_handling((query.price).split(",")) : "",
      //actionParam: query.action
      ratingParam: typeof query.rating !== "undefined" ? "and item.rating >= 4.0" : "",
-     findParam: typeof query.find !== "undefined" ? query.find : ""
+     subcategoryParam: typeof query.scat !== "undefined" ? subcategory_handling(query.scat) : "" 
     }
 
+    return jsonObject
+}
+
+exports.categoryObject = (query) =>{
+    let jsonObject = {
+        findParam: typeof query.find !== "undefined" ? query.find : "", // руина без функции
+    }
+    return jsonObject
+}
+
+exports.subcategoryObject = (query) =>{
+    let jsonObject = {
+        subcategoryParam: typeof query.scat !== "undefined" ? query.scat : ""
+    }
     return jsonObject
 }
 
@@ -43,4 +59,9 @@ function price_handling(prices){
         return price_handling([prices[1],prices[0]])
 
     return `and item.pricewithdiscount between ${prices[0]} and ${prices[1]}`
+}
+
+function subcategory_handling(scats){
+    const param = "'"+JSON.stringify(scats).replaceAll('@','')+"'"+ "::jsonb"
+    return `where ${param} <@ ar`
 }
