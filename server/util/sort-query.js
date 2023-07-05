@@ -62,6 +62,5 @@ function price_handling(prices){
 }
 
 function subcategory_handling(scats){
-    const param = "'"+JSON.stringify(scats).replaceAll('@','')+"'"+ "::jsonb"
-    return `where ${param} <@ ar`
+    return `where (${"ARRAY"+scats} && ar) = true`
 }

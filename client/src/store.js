@@ -7,12 +7,12 @@ const store = createStore({
             products: [],
             product_count: 0,
             cat_list: [],
-            subcat_list:[],
+            subcat_list: [],
             cur_page: 1,
             cur_sort: 0,
             cur_price: [],
             cur_category: [],
-            cur_subcat:[]
+            cur_subcat: []
         }
     },
     getters: {
@@ -50,11 +50,18 @@ const store = createStore({
             store.commit("loadPage")
         },
 
-        remCategory(state, cat) {
-            if (state.cur_category.indexOf(cat) > -1) {
-                state.cur_category.slice(state.cur_category.indexOf(cat), 1)
+        addSubCategory(state, cat) {
+            if (state.cur_subcat.indexOf(cat) > -1) {
+                state.cur_subcat.splice(state.cur_subcat.indexOf(cat), 1)
+            } else {
+                state.cur_subcat.push(cat)
             }
+            console.log(JSON.stringify(state.cur_subcat))
             store.commit("loadPage")
+        },
+
+        remSubCategory(state) {
+            state.cur_subcat = []
         },
 
         setPrice(state, min, max) {
@@ -65,8 +72,10 @@ const store = createStore({
         async loadPage(state) {
             try {
                 var loadStr = ""
+
                 if (this.state.cur_sort) loadStr += "&sort=" + this.state.cur_sort;
                 if (this.state.cur_category.length) loadStr += "&category=" + this.state.cur_category;
+                if (this.state.cur_subcat.length) loadStr += "&scat=" + JSON.stringify(state.cur_subcat).replace(/"/g, '\'').replace(/нет/g, "NULL")
                 state.products = await Promise.resolve(PostService.getPost('?page=' + this.state.cur_page + loadStr))
                 state.product_count = state.products.shift()
                 console.log('?page=' + this.state.cur_page + loadStr)
@@ -86,8 +95,8 @@ const store = createStore({
             }
         },
 
-        async loadSubCat(state,categoryId) {
-            try {           
+        async loadSubCat(state, categoryId) {
+            try {
                 state.subcat_list = await Promise.resolve(PostService.getSubCat('?scat=' + categoryId))
                 console.log(JSON.stringify(state.subcat_list))
             } catch (err) {

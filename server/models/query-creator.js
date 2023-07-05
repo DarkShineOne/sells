@@ -1,24 +1,25 @@
 exports.pageQuery= (params)=>{
     return `select * from (select item.id, item.name, item.price, item.rating, item.discount, item.disctype, item.pricewithdiscount, 
-    jsonb_object_agg(characteristic.id::text, replace(ItemToCharacteristic.value, '\\\\', '\\')) as ar,
+    array_agg(replace(ItemToCharacteristic.value, '\\\\', '\\')) as ar,
     item.logourl, item.itemlink, item.itemcount
     from item
     join ItemToCharacteristic on (ItemToCharacteristic.itemid = item.id)
     join Characteristic on (Characteristic.id = ItemToCharacteristic.characteristicid)
     where item.categoryid ${params.categoryParam} ${params.priceParam} ${params.ratingParam} group by item.name, item.price, item.id,
-    item.rating,item.logourl, item.itemlink order by ${params.sortParam[0]} ${params.sortParam[1]}
-    limit 18 offset 18*(${params.pageParam - 1})) as s ${params.subcategoryParam};`
+    item.rating,item.logourl, item.itemlink order by ${params.sortParam[0]} ${params.sortParam[1]}) as s ${params.subcategoryParam}
+    limit 18 offset 18*(${params.pageParam - 1});`
 }
 
 exports.pageCountQuery= (params)=>{
-    return `select count(*) from (select item.id, item.name, item.price, item.rating, item.discount, item.disctype, item.pricewithdiscount, string_agg(ItemToCharacteristic.value,', '),
-    item.logourl, item.itemlink, item.itemcount
-    from item
-    join ItemToCharacteristic on (ItemToCharacteristic.itemid = item.id)
-    join Characteristic on (Characteristic.id = ItemToCharacteristic.characteristicid)
-    where item.categoryid ${params.categoryParam} ${params.priceParam} 
-    group by item.name, item.price, item.id,
-    item.rating,item.logourl, item.itemlink order by ${params.sortParam[0]} ${params.sortParam[1]}) as s;`
+    return `select count(*) from (select item.id, item.name, item.price, item.rating, item.discount, item.disctype, item.pricewithdiscount, 
+        array_agg(replace(ItemToCharacteristic.value, '\\\\', '\\')) as ar,
+        item.logourl, item.itemlink, item.itemcount
+        from item
+        join ItemToCharacteristic on (ItemToCharacteristic.itemid = item.id)
+        join Characteristic on (Characteristic.id = ItemToCharacteristic.characteristicid)
+        where item.categoryid ${params.categoryParam} ${params.priceParam} ${params.ratingParam} group by item.name, item.price, item.id,
+        item.rating,item.logourl, item.itemlink order by ${params.sortParam[0]} ${params.sortParam[1]})
+        as s ${params.subcategoryParam};`
 }
 
 exports.categoryQuery= (params)=>{

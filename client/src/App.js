@@ -1,9 +1,9 @@
-import Sidebar from '@/components/Sidebar.vue'
-import Body_catalog from '@/components/Body_catalog.vue'
+import Sidebar from '@/components/Sidebar/Sidebar.vue'
+import BodyCatalog from '@/components/BodyCatalog/BodyCatalog.vue'
 
 export default {
     components: {
-        Sidebar, Body_catalog
+        Sidebar, BodyCatalog
     },
 
     created() {
