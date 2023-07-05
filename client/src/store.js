@@ -75,7 +75,7 @@ const store = createStore({
 
                 if (this.state.cur_sort) loadStr += "&sort=" + this.state.cur_sort;
                 if (this.state.cur_category.length) loadStr += "&category=" + this.state.cur_category;
-                if (this.state.cur_subcat.length) loadStr += "&scat=" + JSON.stringify(state.cur_subcat).replace(/"/g, '\'').replace(/нет/g, "NULL")
+                if (this.state.cur_subcat.length) loadStr += "&scat=" + JSON.stringify(state.cur_subcat).replace(/"/g, '\'').replace(/нет/g, "NULL").replace(/\\\\/g, "\\")
                 state.products = await Promise.resolve(PostService.getPost('?page=' + this.state.cur_page + loadStr))
                 state.product_count = state.products.shift()
                 console.log('?page=' + this.state.cur_page + loadStr)
