@@ -17,6 +17,17 @@ export default {
             }
             maxPage.shift();
             return maxPage
+        },
+        slicePageArray(arr,curpage){
+            if(arr.length >5){
+                if(curpage>3 && curpage<arr.length-2)
+                    return arr.slice(curpage-3,curpage+2)
+                if( curpage>=arr.length-2){
+                    return  arr.slice(arr.length-5)
+                }
+                return arr.slice(0,5)
+            }
+            return arr
         }
     },
 }

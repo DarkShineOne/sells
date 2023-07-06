@@ -2,11 +2,10 @@
 </script>
 
 <template>
-  <span v-show="false">{{ getMaxPage() }}</span>  <!-- костыль, не получалось сделать так, чтобы сразу загружались все номера страниц, но вот так работает -->
   <div class="catalog_pages">
     <pageNumber pageNum='<<' @selectPg="selectPage(1)" />
     <pageNumber pageNum='<' @selectPg="selectPage(this.$store.getters.getPage-1)" />
-    <pageNumber v-for="i in getMaxPage(this.$store.getters.getProductCount.count)" :pageNum='i' @selectPg="selectPage"/>
+    <pageNumber v-for="i in slicePageArray(getMaxPage(this.$store.getters.getProductCount.count),this.$store.getters.getPage)" :pageNum='i' @selectPg="selectPage"/>
     <pageNumber pageNum='>' @selectPg="selectPage(this.$store.getters.getPage+1)" />
     <pageNumber pageNum='>>' @selectPg="selectPage(getMaxPage(this.$store.getters.getProductCount.count).pop())"/>
   </div>
