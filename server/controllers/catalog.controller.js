@@ -25,13 +25,15 @@ exports.pages = async(req, res) =>{
 }
 
 exports.category = async(req, res) =>{
-    let post = myCache.get('categoryData')
-    if (typeof post == "undefined"){
-        console.log("no cache")
-        post = await Catalog.category(req.query).catch((err) =>{
-            console.log(err.code)
-        })
-        myCache.set("categoryData", post)
-    }
+    post = await Catalog.category(req.query).catch((err) =>{
+        console.log(err)
+    })
+    res.send(post)
+}
+
+exports.subcategory = async(req, res) =>{
+    post = await Catalog.subcategory(req.query).catch((err) =>{
+        console.log(err)
+    })
     res.send(post)
 }
