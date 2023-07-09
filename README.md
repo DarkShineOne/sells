@@ -12,6 +12,7 @@ npm install @vue/cli-plugin-babel
 if needed 
 
 
-screen 27.06.2023
-![image](https://github.com/DarkShineOne/sells/assets/59344539/fc0ad2da-a198-41cb-8926-631500048692)
+screen 09.07.2023
+![image](https://github.com/DarkShineOne/sells/assets/59344539/62ef13d7-1469-4513-86dc-eb04c98ed794)
+
 
