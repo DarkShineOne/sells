@@ -1,7 +1,7 @@
 # sells
 server
 
-npm install express nodemon pg
+npm install express nodemon pg node-cache
 
 client
 

@@ -1,4 +1,3 @@
-const { query } = require("express")
 
 exports.itemObject = (query) => {
     let jsonObject = {
@@ -61,6 +60,29 @@ function price_handling(prices){
     return `and item.pricewithdiscount between ${prices[0]} and ${prices[1]}`
 }
 
+
 function subcategory_handling(scats){
-    return `where (${"ARRAY"+scats} && ar) = true`
+    //console.log(typeof scats)
+    jsonScats = JSON.parse(JSON.stringify(scats))
+    let returnQuery = 'where ' 
+    for(var key in jsonScats) {
+        returnQuery += '('
+        let data = jsonScats[key]
+        intKey = key.charCodeAt(0) - 96
+        if (typeof data === 'object'){
+            for (var elem in data){                
+                returnQuery += `ar[${intKey}] = '${data[elem]}' or `
+            }
+            returnQuery = returnQuery.slice(0,-4)
+        }
+        else {
+            //console.log(data)
+            returnQuery += `ar[${intKey}] = '${data}'`
+        }
+        returnQuery += `) and `
+    }
+    returnQuery = returnQuery.slice(0,-4)
+
+    //console.log(returnQuery) 
+    return returnQuery
 }

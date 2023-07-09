@@ -9,7 +9,7 @@ exports.pages = async(req, res) =>{
         if (typeof post == "undefined"){
             //console.log("no cache")
             post = await Catalog.pages(req.query).catch((err) =>{
-                console.log(err)
+                console.log(err.code)
             })
             myCache.set("mainPage", post)
         }
@@ -18,7 +18,7 @@ exports.pages = async(req, res) =>{
     else{
         //console.log("else")
         post = await Catalog.pages(req.query).catch((err) =>{
-            console.log(err)
+            console.log(err.code)
         })
         res.send(post)
     }
@@ -26,14 +26,14 @@ exports.pages = async(req, res) =>{
 
 exports.category = async(req, res) =>{
     post = await Catalog.category(req.query).catch((err) =>{
-        console.log(err)
+        console.log(err.code)
     })
     res.send(post)
 }
 
 exports.subcategory = async(req, res) =>{
     post = await Catalog.subcategory(req.query).catch((err) =>{
-        console.log(err)
+        console.log(err.code)
     })
     res.send(post)
 }
