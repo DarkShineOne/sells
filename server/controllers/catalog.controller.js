@@ -26,14 +26,14 @@ exports.pages = async(req, res) =>{
 
 exports.category = async(req, res) =>{
     post = await Catalog.category(req.query).catch((err) =>{
-        console.log(err)
+        console.log(err.code)
     })
     res.send(post)
 }
 
 exports.subcategory = async(req, res) =>{
     post = await Catalog.subcategory(req.query).catch((err) =>{
-        console.log(err)
+        console.log(err.code)
     })
     res.send(post)
 }
