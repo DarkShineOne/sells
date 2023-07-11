@@ -10,8 +10,8 @@
       </form>
       <CategoriesList class="sidebar_element_cat" @catFunc="subCatDraw" />
 
-      <SubCatList v-if="this.subcatAvaible" v-for="SubCatOb in this.$store.getters.getSubCats" class="sidebar_element_cat"
-        :SubCatObj="SubCatOb" @subCatFunc="subCatSelect" />
+      <SubCatList v-if="this.subcatAvaible" v-for="(SubCatOb,index) in this.$store.getters.getSubCats" class="sidebar_element_cat"
+        :SubCatObj="[SubCatOb,index]" @subCatFunc="subCatSelect" />
     </div>
   </div>
 </template>

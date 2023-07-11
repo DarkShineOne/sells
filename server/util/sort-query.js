@@ -62,7 +62,6 @@ function price_handling(prices){
 
 
 function subcategory_handling(scats){
-    //console.log(typeof scats)
     jsonScats = JSON.parse(JSON.stringify(scats))
     let returnQuery = 'where ' 
     for(var key in jsonScats) {

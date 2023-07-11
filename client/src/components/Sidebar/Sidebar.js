@@ -23,8 +23,8 @@ export default {
       }
     },
 
-    subCatSelect(text) {
-      this.$store.commit('addSubCategory', text)
+    subCatSelect(info) {
+      this.$store.commit('addSubCategory', info)
     }
   }
 }

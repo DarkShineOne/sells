@@ -30,9 +30,13 @@ const store = createStore({
         },
         getSubCats: (state, getters) => {
             return state.subcat_list;
+        },
+        getCurSubCats: (state, getters) =>{
+            return state.cur_subcat;
         }
     },
     mutations: {
+
         setPage(state, pg) {
             state.cur_page = pg
         },
@@ -51,12 +55,14 @@ const store = createStore({
         },
 
         addSubCategory(state, cat) {
-            if (state.cur_subcat.indexOf(cat) > -1) {
-                state.cur_subcat.splice(state.cur_subcat.indexOf(cat), 1)
+            let stateParam = PostService.searchForArray(JSON.parse(JSON.stringify(state.cur_subcat)), cat)
+            //console.log(stateParam)
+            if (stateParam > -1) {
+                state.cur_subcat.splice(stateParam, 1)
             } else {
                 state.cur_subcat.push(cat)
+                //console.log(JSON.parse(JSON.stringify(state.cur_subcat)))
             }
-            console.log(JSON.stringify(state.cur_subcat))
             store.commit("loadPage")
         },
 
@@ -75,12 +81,17 @@ const store = createStore({
 
                 if (this.state.cur_sort) loadStr += "&sort=" + this.state.cur_sort;
                 if (this.state.cur_category.length) loadStr += "&category=" + this.state.cur_category;
-                if (this.state.cur_subcat.length) loadStr += "&scat=" + JSON.stringify(state.cur_subcat).replace(/"/g, '\'').replace(/нет/g, "NULL").replace(/\\\\/g, "\\")
+                if (this.state.cur_subcat.length){ //loadStr += "&scat=" + JSON.stringify(state.cur_subcat)
+                    for (let scat of state.cur_subcat){
+                        loadStr += `&scat[${String.fromCharCode(scat[1]+97)}]=${scat[0]}`
+                    }
+                    loadStr.replace(/"/g, '\'').replace(/нет/g, "NULL").replace(/\\\\/g, "\\")
+                }
+                console.log('?page=' + this.state.cur_page + loadStr)
                 state.products = await Promise.resolve(PostService.getPost('?page=' + this.state.cur_page + loadStr))
                 state.product_count = state.products.shift()
-                console.log('?page=' + this.state.cur_page + loadStr)
             } catch (err) {
-                console.log("error pages")
+                console.log(err)
             }
         },
 
@@ -98,7 +109,7 @@ const store = createStore({
         async loadSubCat(state, categoryId) {
             try {
                 state.subcat_list = await Promise.resolve(PostService.getSubCat('?scat=' + categoryId))
-                console.log(JSON.stringify(state.subcat_list))
+                //console.log(JSON.stringify(state.subcat_list))
             } catch (err) {
                 console.log("error subcategories")
             }
